@@ -28,7 +28,7 @@ build() {
     cd "$_source_dir"
     mkdir -p build 
     cd build
-    cmake .. -Wno-dev -DBUILD_TESTS=OFF
+    cmake .. -Wno-dev -DBUILD_TESTS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     make -j$(nproc)
 }
 
