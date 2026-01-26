@@ -13,7 +13,7 @@ export DESKTOP=/usr/share/applications/rigelengine.desktop
 export DEPLOY_OPENGL=1
 
 # Deploy dependencies
-quick-sharun /usr/bin/
+quick-sharun /usr/bin/RigelEngine
 
 # Additional changes can be done in between here
 
