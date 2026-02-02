@@ -35,8 +35,6 @@ if [ "${DEVEL_RELEASE-}" = 1 ]; then
 	cd ./RigelEngine
 else
 	echo "Making stable build of RigelEngine..."
-	wget "$GRON" -O ./gron.awk
-	chmod +x ./gron.awk
 	VERSION="$(git ls-remote --tags --sort="v:refname" https://github.com/lethal-guitar/RigelEngine | tail -n1 | sed 's/.*\///; s/\^{}//; s/^v//')"
 	#git clone --branch "$VERSION" --single-branch --recursive "$REPO" ./RigelEngine
 	wget https://github.com/lethal-guitar/RigelEngine/archive/refs/tags/v$VERSION.tar.gz
