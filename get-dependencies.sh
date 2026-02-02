@@ -41,6 +41,7 @@ else
 	tar -xvf ./v$VERSION.tar.gz
 	rm -f ./*.gz
 	cd ./RigelEngine-$VERSION
+	git submodule update --init --recursive
 fi
 echo "$VERSION" > ~/version
 
