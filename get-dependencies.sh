@@ -24,7 +24,7 @@ echo "Building RigelEngine..."
 echo "---------------------------------------------------------------"
 REPO="https://github.com/lethal-guitar/RigelEngine"
 # Determine to build nightly or stable
-if [ "${DEVEL_RELEASE-}" = 1 ]; then
+#if [ "${DEVEL_RELEASE-}" = 1 ]; then
 	echo "Making nightly build of RigelEngine..."
 	# Get the latest tag
     TAG=$(git ls-remote --tags --sort="v:refname" https://github.com/lethal-guitar/RigelEngine | tail -n1 | sed 's/.*\///; s/\^{}//; s/^v//')
@@ -32,23 +32,13 @@ if [ "${DEVEL_RELEASE-}" = 1 ]; then
     HASH=$(git ls-remote "$REPO" HEAD | cut -c 1-8)
     VERSION="${TAG}-${HASH}"
     git clone --recursive "$REPO" ./RigelEngine
-else
-	echo "Making stable build of RigelEngine..."
-	VERSION="$(git ls-remote --tags --sort="v:refname" https://github.com/lethal-guitar/RigelEngine | tail -n1 | sed 's/.*\///; s/\^{}//; s/^v//')"
-	git clone --branch v"$VERSION" --single-branch --recursive "$REPO" ./RigelEngine
-fi
+#else 
+#stable is having issues upstream to compile
+#	echo "Making stable build of RigelEngine..."
+#	VERSION="$(git ls-remote --tags --sort="v:refname" https://github.com/lethal-guitar/RigelEngine | tail -n1 | sed 's/.*\///; s/\^{}//; s/^v//')"
+#	git clone --branch v"$VERSION" --single-branch --recursive "$REPO" ./RigelEngine
+#fi
 echo "$VERSION" > ~/version
-
-#echo "Building nightly build of RigelEngine..."
-#echo "---------------------------------------------------------------"
-
-# Get the latest tag
-#TAG=$(git ls-remote --tags --sort="v:refname" https://github.com/lethal-guitar/RigelEngine | tail -n1 | sed 's/.*\///; s/\^{}//; s/^v//')
-# Get the short hash
-#HASH=$(git ls-remote "$REPO" HEAD | cut -c 1-8)
-#VERSION="${TAG}-${HASH}"
-#git clone --recursive "$REPO" ./RigelEngine
-#echo "$VERSION" > ~/version
 
 cd ./RigelEngine
 mkdir -p build 
