@@ -32,16 +32,10 @@ if [ "${DEVEL_RELEASE-}" = 1 ]; then
     HASH=$(git ls-remote "$REPO" HEAD | cut -c 1-8)
     VERSION="${TAG}-${HASH}"
     git clone --recursive "$REPO" ./RigelEngine
-	cd ./RigelEngine
 else
 	echo "Making stable build of RigelEngine..."
 	VERSION="$(git ls-remote --tags --sort="v:refname" https://github.com/lethal-guitar/RigelEngine | tail -n1 | sed 's/.*\///; s/\^{}//; s/^v//')"
-	#git clone --branch "$VERSION" --single-branch --recursive "$REPO" ./RigelEngine
-	wget https://github.com/lethal-guitar/RigelEngine/archive/refs/tags/v$VERSION.tar.gz
-	tar -xvf ./v$VERSION.tar.gz
-	rm -f ./*.gz
-	cd ./RigelEngine-$VERSION
-	git submodule update --init --recursive
+	git clone --branch v"$VERSION" --single-branch --recursive "$REPO" ./RigelEngine
 fi
 echo "$VERSION" > ~/version
 
@@ -56,6 +50,7 @@ echo "$VERSION" > ~/version
 #git clone --recursive "$REPO" ./RigelEngine
 #echo "$VERSION" > ~/version
 
+cd ./RigelEngine
 mkdir -p build 
 cd build
 cmake .. -Wno-dev -DBUILD_TESTS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
