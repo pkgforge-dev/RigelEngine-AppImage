@@ -19,11 +19,15 @@ get-debloated-pkgs --add-common --prefer-nano
 make-aur-package sdl2
 
 # If the application needs to be manually built that has to be done down here
-echo "Building RigelEngine..."
+echo "Building nightly build of RigelEngine..."
 echo "---------------------------------------------------------------"
 REPO="https://github.com/lethal-guitar/RigelEngine"
-VERSION="$(git ls-remote "$REPO" HEAD | cut -c 1-9 | head -1)"
-	git clone --recursive "$REPO" ./RigelEngine
+# Get the latest tag
+TAG=$(git ls-remote --tags --sort="v:refname" https://github.com/lethal-guitar/RigelEngine | tail -n1 | sed 's/.*\///; s/\^{}//; s/^v//')
+# Get the short hash
+HASH=$(git ls-remote "$REPO" HEAD | cut -c 1-8)
+VERSION="${TAG}-${HASH}"
+git clone --recursive "$REPO" ./RigelEngine
 echo "$VERSION" > ~/version
 
 cd ./RigelEngine
