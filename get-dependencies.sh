@@ -31,7 +31,7 @@ REPO="https://github.com/lethal-guitar/RigelEngine"
     # Get the short hash
     HASH=$(git ls-remote "$REPO" HEAD | cut -c 1-8)
     VERSION="${TAG}-${HASH}"
-    git clone --recursive "$REPO" ./RigelEngine
+    git clone --recursive --depth 1 "$REPO" ./RigelEngine
 #else 
 #stable is having issues upstream to compile
 #	echo "Making stable build of RigelEngine..."
