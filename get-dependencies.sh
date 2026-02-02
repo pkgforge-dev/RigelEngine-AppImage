@@ -23,7 +23,6 @@ make-aur-package sdl2
 echo "Building RigelEngine..."
 echo "---------------------------------------------------------------"
 REPO="https://github.com/lethal-guitar/RigelEngine"
-GRON="https://raw.githubusercontent.com/xonixx/gron.awk/refs/heads/main/gron.awk"
 # Determine to build nightly or stable
 if [ "${DEVEL_RELEASE-}" = 1 ]; then
 	echo "Making nightly build of RigelEngine..."
@@ -33,14 +32,17 @@ if [ "${DEVEL_RELEASE-}" = 1 ]; then
     HASH=$(git ls-remote "$REPO" HEAD | cut -c 1-8)
     VERSION="${TAG}-${HASH}"
     git clone --recursive "$REPO" ./RigelEngine
+	cd ./RigelEngine
 else
 	echo "Making stable build of RigelEngine..."
 	wget "$GRON" -O ./gron.awk
 	chmod +x ./gron.awk
-	VERSION=$(wget https://api.github.com/repos/lethal-guitar/RigelEngine/tags -O - | \
-		./gron.awk | grep -v "nJoy" | awk -F'=|"' '/name/ {print $3}' | \
-		sort -V -r | head -1)
-	git clone --branch "$VERSION" --single-branch --recursive "$REPO" ./RigelEngine
+	VERSION="$(git ls-remote --tags --sort="v:refname" https://github.com/lethal-guitar/RigelEngine | tail -n1 | sed 's/.*\///; s/\^{}//; s/^v//')"
+	#git clone --branch "$VERSION" --single-branch --recursive "$REPO" ./RigelEngine
+	wget https://github.com/lethal-guitar/RigelEngine/archive/refs/tags/v$VERSION.tar.gz
+	tar -xvf ./v$VERSION.tar.gz
+	rm -f ./*.gz
+	cd ./RigelEngine-$VERSION
 fi
 echo "$VERSION" > ~/version
 
@@ -55,7 +57,6 @@ echo "$VERSION" > ~/version
 #git clone --recursive "$REPO" ./RigelEngine
 #echo "$VERSION" > ~/version
 
-cd ./RigelEngine
 mkdir -p build 
 cd build
 cmake .. -Wno-dev -DBUILD_TESTS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
