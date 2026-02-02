@@ -23,7 +23,7 @@ echo "Building RigelEngine..."
 echo "---------------------------------------------------------------"
 REPO="https://github.com/lethal-guitar/RigelEngine"
 VERSION="$(git ls-remote "$REPO" HEAD | cut -c 1-9 | head -1)"
-	git clone "$REPO" ./RigelEngine
+	git clone --recursive "$REPO" ./RigelEngine
 echo "$VERSION" > ~/version
 
 cd ./RigelEngine
