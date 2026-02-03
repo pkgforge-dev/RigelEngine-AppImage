@@ -42,8 +42,7 @@ REPO="https://github.com/lethal-guitar/RigelEngine"
 echo "$VERSION" > ~/version
 
 cd ./RigelEngine
-mkdir -p build 
-cd build
+mkdir -p build && cd build
 cmake .. -Wno-dev -DBUILD_TESTS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j$(nproc)
 
