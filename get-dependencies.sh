@@ -37,7 +37,7 @@ REPO="https://github.com/lethal-guitar/RigelEngine"
 #stable is having issues upstream to compile
 #	echo "Making stable build of RigelEngine..."
 #	VERSION="$(git ls-remote --tags --sort="v:refname" https://github.com/lethal-guitar/RigelEngine | tail -n1 | sed 's/.*\///; s/\^{}//; s/^v//')"
-#	git clone --branch v"$VERSION" --single-branch --recursive "$REPO" ./RigelEngine
+#	git clone --branch v"$VERSION" --single-branch --recursive --depth 1 "$REPO" ./RigelEngine
 #fi
 echo "$VERSION" > ~/version
 
