@@ -47,6 +47,6 @@ mkdir -p build && cd build
 cmake .. -Wno-dev -DBUILD_TESTS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j$(nproc)
 
-mv -v src/RigelEngine ../AppDir/bin
-cp ../dist/linux/rigelengine.desktop ../AppDir
-cp ../dist/linux/rigelengine_128.png ../AppDir/rigelengine.png
+mv -v src/RigelEngine ../../AppDir/bin
+cp ../dist/linux/rigelengine.desktop ../../AppDir
+cp ../dist/linux/rigelengine_128.png ../../AppDir/rigelengine.png
