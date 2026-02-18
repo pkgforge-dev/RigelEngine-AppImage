@@ -41,18 +41,12 @@ REPO="https://github.com/lethal-guitar/RigelEngine"
 #fi
 echo "$VERSION" > ~/version
 
+mkdir -p ./AppDir/bin
 cd ./RigelEngine
 mkdir -p build && cd build
 cmake .. -Wno-dev -DBUILD_TESTS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 make -j$(nproc)
 
-mkdir -p "/usr/bin"
-cp "src/RigelEngine" "/usr/bin"
-# copy over the destop file from the dist directory
-mkdir -p "/usr/share/applications"
-cp ../dist/linux/rigelengine.desktop "/usr/share/applications"
-# copy over the icons from the dist directory
-mkdir -p "/usr/share/icons"
-cp ../dist/linux/rigelengine_128.png "/usr/share/icons"
-# add icon path to the desktop entry
-echo Icon=/usr/share/icons/rigelengine_128.png >> "/usr/share/applications/rigelengine.desktop"
+mv -v src/RigelEngine ../../AppDir/bin
+cp ../dist/linux/rigelengine.desktop ../../AppDir
+cp ../dist/linux/rigelengine_128.png ../../AppDir/rigelengine.png
