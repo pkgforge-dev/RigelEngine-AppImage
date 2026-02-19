@@ -44,7 +44,11 @@ echo "$VERSION" > ~/version
 mkdir -p ./AppDir/bin
 cd ./RigelEngine
 mkdir -p build && cd build
-cmake .. -Wno-dev -DBUILD_TESTS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+cmake .. \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+	-DBUILD_TESTS=OFF \
+	-Wno-dev
 make -j$(nproc)
 
 mv -v src/RigelEngine ../../AppDir/bin
