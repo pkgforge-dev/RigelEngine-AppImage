@@ -6,20 +6,11 @@ ARCH=$(uname -m)
 
 echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
-pacman -Syu --noconfirm \
-    cmake      \
-    libdecor   \
-	sdl2	   \
-    sdl2_mixer
+pacman -Syu --noconfirm cmake sdl2_mixer
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
-get-debloated-pkgs --add-common --prefer-nano
-
-# Comment this out if you need an AUR package
-#make-aur-package PACKAGENAME
-
-# If the application needs to be manually built that has to be done down here
+get-debloated-pkgs --add-common --prefer-nano libdecor-mini
 
 echo "Building RigelEngine..."
 echo "---------------------------------------------------------------"
@@ -42,15 +33,6 @@ REPO="https://github.com/lethal-guitar/RigelEngine"
 echo "$VERSION" > ~/version
 
 mkdir -p ./AppDir/bin
-cd ./RigelEngine
-mkdir -p build && cd build
-cmake .. \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-	-DBUILD_TESTS=OFF \
-	-Wno-dev
-make -j$(nproc)
-
-mv -v src/RigelEngine ../../AppDir/bin
-cp ../dist/linux/rigelengine.desktop ../../AppDir
-cp ../dist/linux/rigelengine_128.png ../../AppDir/rigelengine.png
+cmake -S ./RigelEngine -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_TESTS=OFF
+cmake --build build -j$(nproc)
+mv -v build/src/RigelEngine ./AppDir/bin
