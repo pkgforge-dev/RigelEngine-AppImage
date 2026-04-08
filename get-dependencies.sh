@@ -9,7 +9,6 @@ echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
     cmake      \
     libdecor   \
-	sdl2	   \
     sdl2_mixer
 
 echo "Installing debloated packages..."
