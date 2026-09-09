@@ -42,7 +42,4 @@ cmake .. \
 	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
 	-DBUILD_TESTS=OFF
 make -j$(nproc)
-
 mv -v src/RigelEngine ../../AppDir/bin
-cp ../dist/linux/rigelengine.desktop ../../AppDir
-cp ../dist/linux/rigelengine_128.png ../../AppDir/rigelengine.png
