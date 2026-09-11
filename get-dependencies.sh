@@ -6,9 +6,7 @@ ARCH=$(uname -m)
 
 echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
-pacman -Syu --noconfirm \
-    cmake      \
-    sdl2_mixer
+pacman -Syu --noconfirm cmake sdl2_mixer
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
@@ -35,11 +33,6 @@ REPO="https://github.com/lethal-guitar/RigelEngine"
 echo "$VERSION" > ~/version
 
 mkdir -p ./AppDir/bin
-cd ./RigelEngine
-mkdir -p build && cd build
-cmake .. \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-	-DBUILD_TESTS=OFF
-make -j$(nproc)
-mv -v src/RigelEngine ../../AppDir/bin
+cmake -S ./RigelEngine -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_TESTS=OFF
+cmake --build build -j$(nproc)
+mv -v build/src/RigelEngine ./AppDir/bin
